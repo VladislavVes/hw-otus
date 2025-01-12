@@ -55,12 +55,13 @@ func WriteLastRune(builder *strings.Builder, r rune, lastR rune) rune {
 		str := strings.Repeat(string(lastR), i)
 		builder.WriteString(str)
 		return 0
-	} else if lastR != 0 {
-		builder.WriteRune(lastR)
-		return r
-	} else {
-		return r
 	}
+
+	if lastR != 0 {
+		builder.WriteRune(lastR)
+	}
+
+	return r
 }
 
 func DigitOrNil(r rune) bool {

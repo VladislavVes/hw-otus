@@ -93,5 +93,4 @@ func TestCheckRune(t *testing.T) {
 			require.Equal(t, tc.expected, result)
 		})
 	}
-
 }
