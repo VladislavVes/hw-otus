@@ -28,7 +28,7 @@ func TestUnpack(t *testing.T) {
 		{input: "১২৩", expected: "১২৩"},
 		{input: "১2২৩0", expected: "১১২"},
 		{input: "੩4", expected: "੩੩੩੩"},
-		//{input: `\\32`, expected: `\\\2`}, // 32 - number, not a digit
+		// {input: `\\32`, expected: `\\\2`}, // 32 - number, not a digit
 	}
 
 	for _, tc := range tests {
