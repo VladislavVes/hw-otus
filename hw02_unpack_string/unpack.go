@@ -4,7 +4,6 @@ import (
 	"errors"
 	"strconv"
 	"strings"
-	"unicode"
 )
 
 var ErrInvalidString = errors.New("invalid string")
@@ -29,7 +28,7 @@ func Unpack(str string) (string, error) {
 		}
 
 		if lastR == saveRune && !isSaved {
-			if !unicode.IsDigit(r) && r != saveRune {
+			if !('0' <= r && r <= '9') && r != saveRune {
 				return "", ErrInvalidString
 			}
 
@@ -65,5 +64,5 @@ func WriteLastRune(builder *strings.Builder, r rune, lastR rune) rune {
 }
 
 func DigitOrNil(r rune) bool {
-	return unicode.IsDigit(r) || r == 0
+	return ('0' <= r && r <= '9') || r == 0
 }
