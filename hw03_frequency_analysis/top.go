@@ -25,12 +25,7 @@ func Top10(text string) []string {
 		if !okConv {
 			continue
 		}
-		_, ok := counter[convertedStr]
-		if !ok {
-			counter[convertedStr] = 0
-		} else {
-			counter[convertedStr]++
-		}
+		counter[convertedStr]++
 	}
 
 	for k, v := range counter {
