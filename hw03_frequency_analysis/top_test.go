@@ -7,7 +7,7 @@ import (
 )
 
 // Change to true if needed.
-var taskWithAsteriskIsCompleted = false
+var taskWithAsteriskIsCompleted = true
 
 var text = `Как видите, он  спускается  по  лестнице  вслед  за  своим
 	другом   Кристофером   Робином,   головой   вниз,  пересчитывая
@@ -79,4 +79,50 @@ func TestTop10(t *testing.T) {
 			require.Equal(t, expected, Top10(text))
 		}
 	})
+}
+
+func TestTop10OneAndNoWords(t *testing.T) {
+	tests := []struct {
+		input    string
+		expected []string
+	}{
+		{input: "Кристофер", expected: []string{"кристофер"}},
+		{input: "", expected: []string{}},
+	}
+
+	for _, tc := range tests {
+		tc := tc
+		t.Run(tc.input, func(t *testing.T) {
+			result := Top10(tc.input)
+			require.Equal(t, tc.expected, result)
+		})
+	}
+}
+
+func TestSimplifyString(t *testing.T) {
+	tests := []struct {
+		input     string
+		expectedS string
+		expectedB bool
+	}{
+		{input: "Кристофер", expectedS: "кристофер", expectedB: true},
+		{input: "Кристофер!", expectedS: "кристофер", expectedB: true},
+		{input: "!Кристофер!", expectedS: "кристофер", expectedB: true},
+		{input: "какой-то", expectedS: "какой-то", expectedB: true},
+		{input: "!a", expectedS: "a", expectedB: true},
+		{input: "a", expectedS: "a", expectedB: true},
+		{input: "----", expectedS: "--", expectedB: true},
+		{input: "---", expectedS: "-", expectedB: true},
+		{input: "--", expectedS: "", expectedB: false},
+		{input: "-", expectedS: "", expectedB: false},
+	}
+
+	for _, tc := range tests {
+		tc := tc
+		t.Run(tc.input, func(t *testing.T) {
+			result, ok := SimplifyString(tc.input)
+			require.Equal(t, tc.expectedS, result)
+			require.Equal(t, tc.expectedB, ok)
+		})
+	}
 }
